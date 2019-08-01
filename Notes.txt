@@ -1,0 +1,29 @@
+We are proposing to breakdown the model to three seperate predictive/forcasting models
+
+1. Predicting what the current stream-level of a gage is given rainfall events (past and present) of the site itself and at the upstream sites, imperveous surfaces, basin characteristics and it's previous stream gage level measurements i.e has this location flooded previously within the past 3 months,was it flooded this time last year and also on average how often does it flood.
+
+        -This model is based on the assumption that the stream gages being used have previous stream gages levels recorded over a period of time prior to the the date you are trying to predict.
+        
+        -This model predicts extremely well but our concern was would giving the model previous target data be seen as data leakage/cheating? After talking to some ml experts it was concluded that once a stream gage actually has previous data recorded over time, then it should be used in a model to help it predict as this is what will actually be useful to hydrologists in a real world situation since they already have this knowledge to hand.
+        
+  
+2. The same problem as above, but model will be for an ungaged basin.
+
+        - In an ungaged basin all the same features as above will be included into the model except the previous stream gage levels as we are assumiung that there is no previous data.
+
+
+
+3. Using the same dataset as 1 or 2 (depending on whether it is gaged or ungaged) see can we forcast one month ahead whether a stream will flood or not. 
+
+         -Similar to the models above, but the current months rainfall will not be included, only the previous 3 months rainfall leading up to the given date for that location and upstream will be.
+         
+         
+The notebook is set up for scenario 1 but can be easily changed to be any of the above be rearranging the features included in the dataset (I will include another notebook soon demonstrating the results obtained from the other models)
+
+What we are currently working on:
+            - Dealing with the biased dataset by trying out subsampling etc.
+            - Improving the NN by adding in more layers, trying different activation functions.
+            - Including imagery into the dataset
+                    - We currently have some raster files saved down for each location and are building a VGG16.
+                    - We are still in discussions on how to link the tabular and raster models together
+                    - We are also trying out different train test splits variations
